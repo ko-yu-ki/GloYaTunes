@@ -8,6 +8,9 @@ export const radioPlayerInit = () => {
   const radioCoverImg = document.querySelector('.radio-cover__img');
   const radioItem = document.querySelectorAll('.radio-item');
   const radioStop = document.querySelector('.radio-stop');
+  const radioVolumeButton = document.querySelectorAll('.radio-volume-icon');
+  const volume = document.querySelectorAll('.volume-progress');
+  const radioVolume = volume[1];
 
   const audio = new Audio(); //создает объект
   audio.type = 'audio/aac';
@@ -55,6 +58,19 @@ export const radioPlayerInit = () => {
       audio.pause();
       toggleIcon();
     }
-
   });
+
+  radioVolume.addEventListener('input', () => {
+    audio.volume = radioVolume.value / 100;
+
+    if (audio.volume > 0) {
+      radioVolumeButton[0].classList.remove('fa-volume-off');
+      radioVolumeButton[0].classList.add('fa-volume-down');
+    } else if (audio.volume === 0) {
+      radioVolumeButton[0].classList.remove('fa-volume-down');
+      radioVolumeButton[0].classList.add('fa-volume-off');
+    } 
+  });
+
+
 }
